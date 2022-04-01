@@ -69,11 +69,31 @@ class Handler(watchdog.events.PatternMatchingEventHandler):
         print("Watchdog received modified event - % s." % event.src_path)
         split_tup = os.path.splitext(event.src_path)
         if split_tup[1] == ".csv":   
+            
+            # df = pd.DataFrame(result)
+            # df = pd.read_csv(event.src_path)
+            # columns = df.columns
+            # pathname = event.src_path.split("/")
+            # path = pathname[len(pathname)-1]  
+            # columns = df.columns
+            # result = self.engine.connect().execute(("SELECT * FROM {pathname}".format(pathname=pathname)))
+            # result = ([ dict(zip(i.keys(), i.values())) for i in result ])    
+            # df = pd.DataFrame(result)
+  
+            # changed_df = df.merge(df, indicator=True, how='outer')
+            # print(changed_df[changed_df['_merge'] == 'right_only'])
+            # for i in columns[2:len(columns)]:
+            #     df[i] = df[i].str.rstrip('%').astype('float')
+                
+            # df['Date'] = pd.to_datetime(df['Date'])
+            # self.commodityModifiedUpload(df,path) 
+            
             df = pd.read_csv(event.src_path)
             columns = df.columns
             pathname = event.src_path.split("/")
             path = pathname[len(pathname)-1]  
             columns = df.columns
+            
             for i in columns[2:len(columns)]:
                 df[i] = df[i].str.rstrip('%').astype('float')
                 
